@@ -12,6 +12,8 @@
 
 {% block 'body' %}
 
+{% include "partials/navbar.html" %}
+
 <br><br>
 
 <div class="container">
@@ -25,22 +27,16 @@
                     name="medico">
                 <br>
 
-                <div class="especialidades">
-                    <input type="checkbox" name="especialidades" value="">
-                    <span class="badge bg-secondary">
+                <div class="especialidades">                         
 
                         {% for especialidade in especialidades %}
 
                             <input type="checkbox" name="especialidades" value="{{especialidade.id}}">
-                                <span class="badge bg-secondary">
-
-                                    {{especialidade.especialidade}}
-
-                                </span>
+                            <span class="badge bg-secondary"> {{especialidade.especialidade}} </span>
 
                         {% endfor %}
-
                     </span>
+
                 </div>
                 <br>
                 <input type="submit" value="filtrar" class="btn btn-success btn-dark-color">
@@ -52,24 +48,24 @@
                 <div class="row">
                     <div class="col-md-3"><img src="{{medico.foto.url}}" class="foto-perfil-card" alt=""></div>
                     <div class="col-md">
-                        <p style="font-size: 20px" class="p-bold">Dr(a). {{medico.nome}} <i
-                                class="bi bi-patch-check-fill icon-main"></i></p>
+                        <p style="font-size: 20px" class="p-bold">Dr(a). {{medico.nome}} <i class="bi bi-patch-check-fill icon-main"></i></p>
+                                
                         <p>{{medico.descricao}}</p>
                     </div>
                 </div>
-                <p><i class="bi bi-map icon-main"></i>&nbsp&nbsp{{medico.rua}}, {{medico.numero}}.</p>
+                <p><i class="bi bi-map icon-main"></i>&nbsp&nbsp Rua: {{medico.rua}}, {{medico.numero}}.</p>
                 <p><i class="bi bi-calendar2-week icon-main"></i>&nbsp&nbspProxima data :
 
 
                     {% if medico.proxima_data %}
-                    {{medico.proxima_data}}
+                        {{medico.proxima_data}}
                     {% else %}
-                    Aguarde uma data.
+                        Aguarde uma data.
                     {% endif %}
                 </p>
                 <hr>
 
-                <a href="#" class="btn btn-success btn-dark-color">Agendar</a>
+                <a href="{% url 'escolher_horario' medico.id %}" class="btn btn-success btn-dark-color">Agendar</a>
             </div>
             <br>
             {% endfor %}
